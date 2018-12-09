@@ -1,0 +1,37 @@
+doctype html
+html
+    head
+        title Login Page
+        link(rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css")
+        link( rel="stylesheet" href="/fontawesome-free-5.5.0-web/css/all.min.css" type="text/css")
+        style.
+            .loginform{
+                display: block;
+                box-sizing: border-box;
+                padding:20px;
+                width:25%;
+                border:1px solid black;
+                margin: 10% auto;
+                box-shadow: 0px 0px 15px;
+            }
+    body
+        .loginform
+            form(method="post" action="/login")
+                h3(style="font-family:'Comic Sans MS', cursive, sans-serif;text-align: center") Login
+                .form-group
+                    span.fas.fa-user
+                    label(for='UserName') &nbsp;User Name
+                    input#UserName.form-control(type="text" name="UserName" placeholder="Enter User Name" autocomplete="off" required)
+                .form-group
+                    span.fas.fa-lock
+                    label(for="Password") &nbsp;Password
+                    input#password.form-control(type="password" name="password" placeholder="Enter Password" autocomplete="off" required)
+                .form-group.form-check
+                    input#Keep.form-check-input(type='checkbox' name='Keep')
+                    label.form-check-label(for='Keep') Keep me singed
+
+                if Invalid
+                    .form-group(style='color:red;font-family:cursive;text-align: center;') Enter Valid Credentials
+
+                .form-group(align='center' style='margin-bottom:0;')
+                    button.btn.btn-primary(type='submit') LOGIN

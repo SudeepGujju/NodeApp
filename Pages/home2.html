@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/fontawesome-free-5.5.0-web/css/all.min.css" type="text/css"/>
+        <style>
+            .box{    
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top:0;
+                left:0;
+                bottom:0;
+                right: 0;
+                display: none;
+            }
+            .box .b{
+                border-radius: 50%;
+                border-left: 4px solid;
+                border-right: 4px solid;
+                border-top: 4px solid transparent !important;
+                border-bottom: 4px solid transparent !important;
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%, -50%);
+                animation: rot 2s infinite;
+            }
+            .box .b1{
+                width: 150px;
+                height: 150px;
+                border-color:#f6b93b;
+            }
+            .box .b2{
+                width: 130px;
+                height: 130px;
+                border-color:#4a63bd;
+                animation-delay: 0.2s;
+            }
+            .box .b3{
+                width: 110px;
+                height: 110px;
+                border-color:#2ecc71;
+                animation-delay: 0.4s;
+            }
+            .box .b4{
+                width: 90px;
+                height: 90px;
+                border-color:#34495e;
+                animation-delay: 0.6s;
+            }
+            @keyframes rot{
+                0%{
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+                50%{
+                    transform: translate(-50%, -50%) rotate(-180deg);
+                }
+                100%{
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+            }
+
+            #User{
+                padding:10px;
+                text-align: center;
+                
+                font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+            }
+/* SideNavBar Comment
+            .sideNavBar{
+                position: fixed;
+                height:100%;
+                width: 50px;
+                padding: 10px;
+                background-color:#dee2e6;
+                overflow: hidden;
+            }
+
+            .Expanded{
+                width: 200px;
+            }
+
+            .sideNavBar .submenu{
+                padding-top: 25px;
+                padding-left: 5px;
+                padding-bottom: 5px;
+                cursor: pointer;
+            }
+
+            .submenu a{
+                display: none;
+            }
+
+            .submenu:hover a{
+                width: 100%;
+                display: block;
+            }
+*/
+            .content{
+                margin-left:50px;
+            }
+
+            .sidenav{
+                position: fixed;
+                height: 100%;
+                background-color:#2ecc71;
+            }
+            .option{
+                position: absolute;
+                background-color: #4a63bd;
+                margin-top:5px;
+                padding-top: 15px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 15px;
+                display: block;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                width:150px;
+                top:0%;
+                left:-110px;
+                color: white;
+                cursor: pointer;
+            }
+
+            .option:nth-child(2){
+                top:10%;
+            }
+
+            .option:nth-child(3){
+                top:20%;
+            }
+
+            .option:nth-child(4){
+                top:30%;
+            }
+
+            .option:nth-child(5){
+                top:40%;
+            }
+
+            .option:nth-child(6){
+                top:50%;
+            }
+
+            .option:hover {
+                left:0;
+                transition: 0.5s;
+            }
+
+            .option i{
+                float: right;
+            }
+
+            .hide{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- SideNavBar Comment
+        <div class="sideNavBar" id="sideNavBar">
+            <div class="submenu" id="MenuExp">
+                <i class="fas fa-bars" style="font-size:30px;vertical-align:middle;"></i>
+                <a>MENU</a>
+            </div>
+            <div class="submenu">
+                <i class="fas fa-user-alt" style="font-size:25px;vertical-align:middle;"></i>
+                <a>User Info</a>
+            </div>
+            <div class="submenu">
+                <i class="far fa-envelope" style="font-size:25px;vertical-align:middle;"></i>
+                <a>Messages</a>
+            </div>
+        </div>
+        -->
+        <div class="sidenav" id="sidenav">
+            <div class="option">
+                <a>&nbsp;MENU</a>
+                <i class="fas fa-bars" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+            <div class="option" onclick="ShowProfile()">
+                <a>&nbsp;User Profile</a>
+                <i class="fas fa-user-alt" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+            <div class="option">
+                <a>&nbsp;Messages</a>
+                <i class="far fa-envelope" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+            <div class="option" onclick="showProducts()">
+                <a>&nbsp;Products</a>
+                <i class="fab fa-product-hunt" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+            <div class="option" onclick="fnGetStudents()">
+                <a>&nbsp;Students</a>
+                <i class="fas fa-user-graduate" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+            <div class="option" onclick="location.assign('/logout')">
+                <a>&nbsp;Logout</a>
+                <i class="fas fa-sign-out-alt" style="font-size:25px;vertical-align:middle;"></i>
+            </div>
+        </div>
+        <div class="content">
+            <h1 id="User">Hello User</h1>
+            <div id="ProfileDetails"></div>
+            <div id="ProductsList" class="container" style="display:none;">
+                <table id="ProductsTable" class="table table-hover table-bordered table-reponsive">
+                    <thead class="table-dark">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Desciption</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="StudentsList" class="container" style="display:none;">
+                <div class="container sm" style="margin-left: 25%;">
+                    <form class="form-inline">
+                        <div class="form-group row">
+                            <label for="studenetname" class="col-sm-1 col-form-label">Name</label>
+                            <div class="col-sm-5">
+                                <input class="form-control form-control-sm" type="text" placeholder="ENTER NAME" name="studentname" id="studentname" >
+                            </div>
+                        </div>
+                        <div class="from-group row">
+                            <label for="dob" class="col-sm-1 col-form-label">DOB</label>
+                            <div class="col-sm-5">
+                                <input class="form-control form-control-sm" type="text" placeholder="ENTER DOB " name="dob" id="dob">
+                            </div>
+                        </div>
+                        <div class="form-group row" >
+                            <input type="hidden" id="Studentid" name="Studentid" >
+                            <input type="button" id="Addbtn" value="Add Student" class="btn btn-primary" onclick="fnAddStudent();">
+                            <input type="button" id="updtbtn" value="Update Student" class="btn btn-primary hide" onclick="fnUpdateStudent();">
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <table class="table" id="StudentsTable">
+                    <thead class="table-dark">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Operations</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <div class="b b1"></div>
+            <div class="b b2"></div>
+            <div class="b b3"></div>
+            <div class="b b4"></div>
+        </div>
+    </body>
+    <script>
+        /* SideNavBar Comment
+        document.getElementById("MenuExp").addEventListener("click",ExpMenu);
+        function ExpMenu(){
+
+            if( document.getElementById("sideNavBar").classList.contains("Expanded") )
+            {
+                document.getElementById("sideNavBar").classList.remove("Expanded");
+            }
+            else
+            {
+                document.getElementById("sideNavBar").classList.add("Expanded");
+            }
+        }
+        */
+        if(document.cookie){
+            document.cookie.split(";").forEach((cookie, idx)=>{
+
+                var vCookieName = cookie.split("=")[0];
+                var vCookieValue = cookie.split("=")[1];
+
+                if(vCookieName == "UserName")
+                    document.getElementById("User").innerHTML = "Hello "+ vCookieValue;
+
+            });
+        }
+        const URL = "https://api.mlab.com/api/1";
+        var DBName = "sudeepdb";
+        var CollectionName = "Products";
+        var APIKey = "47a_r0w3VQ597IFldGZ_9mMXN1c2jUos";
+
+        var vStudentDetails = [];
+
+        function showProducts(){
+
+            var vURL = `${URL}/databases/${DBName}/collections/${CollectionName}?apiKey=${APIKey}`;
+
+            var http;
+            if(window.XMLHttpRequest){
+                http = new window.XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                http = new window.ActiveXObject('Microsoft.HTTP');
+            }
+            http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+            http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+            http.onreadystatechange = function(){
+
+                if(http.readyState == 4 && http.status == 200){
+
+                    var vData = JSON.parse(http.responseText);
+
+                    document.querySelector("#ProductsTable tbody").innerHTML = "";
+                    vData.forEach(function(product, idx){
+
+                        var row = document.createElement("tr");
+
+                        var cell1 = document.createElement("td");
+                        cell1.innerText = product.ProductId;
+
+                        var cell2 = document.createElement("td");
+                        cell2.innerText = product.Name;
+
+                        var cell3 = document.createElement("td");
+                        cell3.innerText = product.Description;
+
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        row.appendChild(cell3);
+
+                        document.querySelector("#ProductsTable tbody").appendChild(row);
+                    });
+                    document.getElementById("ProductsList").style.display = "";
+                }
+            }
+            http.open("get",vURL,true);
+            http.send();
+        }
+
+        function ShowProfile(){
+
+        }
+
+        function fnGetStudents(){
+
+            document.getElementById("StudentsList").style.display = "";
+
+            var http;
+            if(window.XMLHttpRequest){
+                http = new window.XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                http = new window.ActiveXObject('Microsoft.HTTP');
+            }
+
+            http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+            http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+
+             http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200){
+
+                    var vData = JSON.parse(http.responseText);
+
+                    document.querySelector("#StudentsTable tbody").innerHTML = "";
+
+                    vStudentDetails = vData;
+
+                    if(vData.length == 0)
+                    {
+                        var row = document.createElement("tr");
+
+                        var cell1 = document.createElement("td");
+                        cell1.innerText = "No Records found";
+                        cell1.setAttribute("colspan","4");
+
+                        cell1.style.textAlign = "center";
+
+                        row.appendChild(cell1);
+                        document.querySelector("#StudentsTable tbody").appendChild(row);
+                    }
+                    else{
+
+                        vData.forEach(function(student, idx){
+
+                            var row = document.createElement("tr");
+
+                            var cell1 = document.createElement("td");
+                            //cell1.innerText = student._id;
+                            cell1.innerText = idx+1;
+
+                            var cell2 = document.createElement("td");
+                            cell2.innerText = student.NAME;
+
+                            var cell3 = document.createElement("td");
+                            cell3.innerText = student.DOB;
+
+                            /* Cell 4 */
+                            var cell4 = document.createElement("td");
+
+                            var button = document.createElement("input");
+                            button.setAttribute("type","button");
+                            button.setAttribute("value","Delete");
+                            button.className = "btn btn-danger" ;
+                            button.addEventListener("click",function(){fnDelStudent(student._id);});
+                            cell4.appendChild(button);
+
+                            var button1 = document.createElement("input");
+                            button1.setAttribute("type","button");
+                            button1.setAttribute("value","Update");
+                            button1.className = "btn btn-primary";
+                            button1.addEventListener("click",function(){fnShowDetailsToUpdate(idx);});
+                            cell4.appendChild(button1);
+
+                            row.appendChild(cell1);
+                            row.appendChild(cell2);
+                            row.appendChild(cell3);
+                            row.appendChild(cell4);
+
+                            document.querySelector("#StudentsTable tbody").appendChild(row);
+                        });
+                    }
+                }
+            }
+
+            http.open("get","/Students",true);
+            http.send(null);
+        }
+
+        function fnAddStudent(){
+
+            var http;
+            if(window.XMLHttpRequest){
+                http = new window.XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                http = new window.ActiveXObject('Microsoft.HTTP');
+            }
+
+            http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+            http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200){
+                    var vData = JSON.parse(http.responseText);
+
+                    document.getElementById('studentname').value = "";
+                    document.getElementById('dob').value = "";
+
+                    alert("Added Successfully");
+
+                    fnGetStudents();
+                }
+            }
+
+            var vURL = "/Students";
+            var vParam = "NAME="+document.getElementById('studentname').value+"&DOB="+document.getElementById('dob').value;
+            http.open("post",vURL,true);
+            http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            http.send(vParam);
+        }
+
+        function fnDelStudent(vID){
+            var http;
+            if(window.XMLHttpRequest){
+                http = new window.XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                http = new window.ActiveXObject('Microsoft.HTTP');
+            }
+
+            http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+            http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200){
+                    alert("Deleted Successfully");
+                    fnGetStudents();
+                }
+            }
+
+            http.open("delete",`/Students/${vID}`,true);
+            http.send(null);
+
+        }
+
+        function fnUpdateStudent(){
+
+            var http;
+            if(window.XMLHttpRequest){
+                http = new window.XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                http = new window.ActiveXObject('Microsoft.HTTP');
+            }
+
+            http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+            http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200){
+                    var vData = JSON.parse(http.responseText);
+
+                    document.getElementById('studentname').value = "";
+                    document.getElementById('dob').value = "";
+            
+                    document.getElementById("updtbtn").classList.add("hide");
+                    document.getElementById("Addbtn").classList.remove("hide");
+
+                    fnGetStudents();
+                }
+            }
+
+            var vURL = "/Students/"+document.getElementById('Studentid').value;
+            var vParam = "NAME="+document.getElementById('studentname').value+"&DOB="+document.getElementById('dob').value;
+            http.open("put",vURL,true);
+            http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            http.send(vParam);
+        }
+    
+        function fnShowDetailsToUpdate(vIdx){
+
+            document.getElementById("Addbtn").classList.add("hide");
+            document.getElementById("updtbtn").classList.remove("hide");
+
+            document.getElementById('studentname').value = vStudentDetails[vIdx].NAME;
+            document.getElementById('dob').value = vStudentDetails[vIdx].DOB;
+            document.getElementById('Studentid').value = vStudentDetails[vIdx]._id;
+
+        }
+    </script>
+</html>

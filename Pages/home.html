@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <style>
+            .box{    
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top:0;
+                left:0;
+                bottom:0;
+                right: 0;
+                display: none;
+            }
+            .box .b{
+                border-radius: 50%;
+                border-left: 4px solid;
+                border-right: 4px solid;
+                border-top: 4px solid transparent !important;
+                border-bottom: 4px solid transparent !important;
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%, -50%);
+                animation: rot 2s infinite;
+            }
+            .box .b1{
+                width: 150px;
+                height: 150px;
+                border-color:#f6b93b;
+            }
+            .box .b2{
+                width: 130px;
+                height: 130px;
+                border-color:#4a63bd;
+                animation-delay: 0.2s;
+            }
+            .box .b3{
+                width: 110px;
+                height: 110px;
+                border-color:#2ecc71;
+                animation-delay: 0.4s;
+            }
+            .box .b4{
+                width: 90px;
+                height: 90px;
+                border-color:#34495e;
+                animation-delay: 0.6s;
+            }
+            @keyframes rot{
+                0%{
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+                50%{
+                    transform: translate(-50%, -50%) rotate(-180deg);
+                }
+                100%{
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+            }
+
+            #User{
+                padding:10px;
+                text-align: center;
+                
+                font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="User">Hello User</h1>
+        <table class="table table-hover table-bordered table-reponsive">
+            <thead class="table-dark">
+                <th>#</th>
+                <th>Name</th>
+                <th>Desciption</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>        
+        <div class="box">
+            <div class="b b1"></div>
+            <div class="b b2"></div>
+            <div class="b b3"></div>
+            <div class="b b4"></div>
+        </div>
+    </body>
+    <script>
+        if(document.cookie){
+           document.getElementById("User").innerHTML = "Hello "+document.cookie.split("=")[1];
+        }
+        const URL = "https://api.mlab.com/api/1";
+        var DBName = "sudeepdb";
+        var CollectionName = "Products";
+        var APIKey = "47a_r0w3VQ597IFldGZ_9mMXN1c2jUos";
+
+        var vURL = `${URL}/databases/${DBName}/collections/${CollectionName}?apiKey=${APIKey}`;
+
+        var http;
+        if(window.XMLHttpRequest){
+            http = new window.XMLHttpRequest();
+        }else if(window.ActiveXObject){
+            http = new window.ActiveXObject('Microsoft.HTTP');
+        }
+        http.onloadstart = function(){document.querySelector(".box").style.display = "block";};
+        http.onloadend = function(){document.querySelector(".box").style.display = "none";};
+        http.onreadystatechange = function(){
+
+            if(http.readyState == 4 && http.status == 200){
+
+                var vData = JSON.parse(http.responseText);
+
+                vData.forEach(function(product, idx){
+                    var row = document.createElement("tr");
+
+                    var cell1 = document.createElement("td");
+                    cell1.innerText = product.ProductId;
+
+                    var cell2 = document.createElement("td");
+                    cell2.innerText = product.Name;
+
+                    var cell3 = document.createElement("td");
+                    cell3.innerText = product.Description;
+
+                    row.appendChild(cell1);
+                    row.appendChild(cell2);
+                    row.appendChild(cell3);
+
+                    document.querySelector("tbody").appendChild(row);
+                });
+
+            }
+        }
+        http.open("get",vURL,true);
+        http.send();
+    </script>
+</html>

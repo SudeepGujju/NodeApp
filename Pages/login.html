@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Page</title>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/fontawesome-free-5.5.0-web/css/all.min.css" type="text/css"/>
+        <style>
+            .loginform{
+                display: block;
+                box-sizing: border-box;
+                padding:20px;
+                width:25%;
+                border:1px solid black;
+                margin: 10% auto;
+                box-shadow: 0px 0px 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loginform">
+            <form method="post" action="/login" >
+                <h3 style="font-family:'Comic Sans MS', cursive, sans-serif;text-align: center">Login</h3>
+                <div class="form-group">
+                    <span class="fas fa-user"></span>
+                    <label for="UserName">User Name </label>
+                    <input type="text" name="UserName" id="UserName" class="form-control" placeholder="Enter User Name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <span class="fas fa-lock"></span>
+                    <label for="Password">Password </label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" autocomplete="off">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="Keep" name="Keep" class="form-check-input">
+                    <label for="Keep" class="form-check-label">Keep me singed</label>
+                </div>
+                <div class="form-group" style="color:red;font-family:cursive;text-align:center;">
+                    Enter Valid Credentials
+                </div>
+                <div class="form-group" align="center" style="margin-bottom:0;">
+                    <button type="submit" class="btn btn-primary">LOGIN</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
