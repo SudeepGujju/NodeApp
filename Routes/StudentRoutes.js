@@ -1,10 +1,14 @@
 const express = require("express");
+const config = require("config");
 //var bodyparser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 
 const router = express.Router();
 
-const url = "mongodb://localhost:27017";
+//const url = "mongodb://localhost:27017";
+const url = `mongodb://${config.get("mongoConfig.host")}:${config.get(
+  "mongoConfig.port"
+)}`;
 const database = "studentDB";
 /*
 MongoClient.connect(url, function(err, client){

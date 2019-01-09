@@ -1,0 +1,6 @@
+{
+  "Mode": "Production",
+  "mongoConfig": {
+    "host": "localhost"
+  }
+}

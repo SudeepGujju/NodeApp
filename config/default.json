@@ -1,0 +1,6 @@
+{
+  "AppName": "Express App",
+  "mongoConfig": {
+    "port": "27017"
+  }
+}
