@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var cors = require("cors");
 const morgan = require("morgan");
 const config = require("config");
+const debugReq = require("debug")("app:request");
 
 /* Routes */
 var HomeRoutes = require("./Routes/HomeRoutes");
@@ -29,7 +30,7 @@ const corsOptions = {
   origin: "http://localhost:4200",
   allowedHeaders: "Content-Type, Accept, Authorization"
 };
-app.options("*", cors());
+app.options("*", cors(corsOptions));
 
 ///* Verify Later */
 //app.use(function(req, res, next) {
@@ -47,6 +48,12 @@ app.options("*", cors());
 //  }*/
 //  next();
 //});
+
+app.use(function(req, res, next) {
+  debugReq(req.params);
+  debugReq(req.body);
+  next();
+});
 
 app.use(function(err, req, res, next) {
   console.log(err.stack);
